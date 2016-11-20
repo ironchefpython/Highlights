@@ -29,7 +29,6 @@ HIGHLIGHTER = Highlighter.load('nn_model.pickle', 'data_out.csv')
 # Given a video id, downlaods the video and returns the filename
 def get_video(video_id):
     url = "https://www.youtube.com/watch?v=%s" % (video_id,)
-    print(YT_OPTS['outtmpl'])
     tempfile = YT_OPTS['outtmpl'] % {'id': video_id}
     with youtube_dl.YoutubeDL(YT_OPTS) as ydl:
 	    ydl.download([url])
@@ -52,7 +51,6 @@ def get_item(id):
 class Spot:
     def __init__(self, video_id):
         snippet = get_item(video_id)['snippet']
-        print(snippet)
         self.vid = {
             'videoId': video_id,
             'snippet': snippet,
