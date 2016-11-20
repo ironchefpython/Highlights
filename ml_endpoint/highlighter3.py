@@ -40,7 +40,7 @@ class Highlighter:
         cap = cv2.VideoCapture(filename)
         logging.info('loaded %i bytes from %s' % (path.getsize(filename), filename))
 
-        length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        length = int(cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
         if length < 5:
             raise ValueError("Video must be longer than 5 seconds, but is " + str(length))
         vid = {
@@ -256,7 +256,7 @@ def combine(frame1, frame2, exp_avrg):
     return (diff > exp_avrg)
     
 def get_fps(cap):
-    fps = cap.get(cv2.CAP_PROP_FPS)
+    fps = cap.get(cv2.cv.CV_CAP_PROP_POS_FRAMES)
     return 30 if(math.isnan(fps)) else fps
 
 def load_model(pickename, dataname):
