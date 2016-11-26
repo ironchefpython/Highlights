@@ -13,11 +13,11 @@ import urlparse
 from highlighter3 import Highlighter
 import tempfile
 import logging
-from os import path
+from os import path, environ
 
 logging.basicConfig(level=logging.DEBUG)
 
-_api_key = "AIzaSyBFFC9kGalsfBWbWlX6TqDXqwxflo6s7k0"
+_api_key = environ['API_KEY']
 YT_OPTS = {
     'format': '17',       
     'outtmpl': path.join(tempfile.mkdtemp(), 'vid_%(id)s.3gp'),        

@@ -8,6 +8,7 @@ from flask import Flask, Response, jsonify, redirect, request, url_for, session,
 from oauth2client.client import OAuth2WebServerFlow, OAuth2Credentials
 from apiclient import discovery
 from flask_formatter import Formatter
+from flask_cors import CORS
 
 # testing9499924@gmail.com
 
@@ -27,6 +28,7 @@ app.config.update(
     SERVER_NAME=HOSTNAME,
     SESSION_TYPE='filesystem'
 )
+CORS(app, supports_credentials=True)
 
 @Formatter.of(list, dict)
 def format_json(obj):
@@ -73,12 +75,24 @@ def get_videos_for_channel(channel_id):
     return service().search().list(part="snippet", type="video",
             channelId=channel_id, order="date", maxResults=50).execute()
 
+@app.route('/api/videos/<video_id>/related', methods=['GET'])
+def get_related_videos(channel_id):
+    return service().search().list(part="snippet", type="video",
+            relatedToVideoId=video_id, order="date", maxResults=50).execute()
+
+
 @app.route('/api/subscribed_videos')
 def get_videos():
     channel_ids = [sub['snippet']['resourceId']['channelId'] 
                                     for sub in get_subscriptions()['items']]
     search_results = map(get_videos_for_channel, channel_ids)
     return sum([res['items'] for res in search_results], [])
+
+@app.route("/login")
+def login():
+    logging.info(request.args.get('target'))
+    return redirect(request.args.get('target'))
+
 
 @app.route("/")
 def index():
