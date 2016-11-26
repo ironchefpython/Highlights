@@ -18,6 +18,7 @@ from os import path, environ
 logging.basicConfig(level=logging.DEBUG)
 
 _api_key = environ['API_KEY']
+
 YT_OPTS = {
     'format': '17',       
     'outtmpl': path.join(tempfile.mkdtemp(), 'vid_%(id)s.3gp'),        
