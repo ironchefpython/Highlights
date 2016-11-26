@@ -17,7 +17,7 @@ from os import path
 
 logging.basicConfig(level=logging.DEBUG)
 
-_api_key = "AIzaSyBFFC9kGalsfBWbWlX6TqDXqwxflo6s7k0"
+_api_key = "AIzaSyB39-pVtLhOpB012bFOOvp19GDcWHpbyIA"
 YT_OPTS = {
     'format': '17',       
     'outtmpl': path.join(tempfile.mkdtemp(), 'vid_%(id)s.3gp'),        
